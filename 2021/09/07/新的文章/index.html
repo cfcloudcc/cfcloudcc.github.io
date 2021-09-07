@@ -3,7 +3,7 @@
 
 	<head>
 		
-<title>Hello World-橙blog</title>
+<title>新的文章-橙blog</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -192,7 +192,7 @@
         <ul class="tag">
             
         </ul>
-        <h1>Hello World</h1>
+        <h1>新的文章</h1>
         <div class="article-info">
             <div class="article-author">
                 
@@ -205,26 +205,46 @@
                 </svg>
                 
                 <span> <a href="">橙子</a></span>
-                <p>2021-09-07 11:15:38</p>
+                <p>2021-09-07 11:59:03</p>
             </div>
         </div>
     </div>
 </div>
 <div class="article-content">
     <div id="article" class="content">
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
+        <hr>
+<p>title: v2ray通过docker方式对接sspanel教程（含中转教程）<br>categories: 实用教程<br>tags:</p>
+<ul>
+<li>sspanel</li>
+<li>v2ray</li>
+<li>dorck<br>excerpt: v2ray通过docker方式对接sspanel教程（含中转教程）<br>date: 2021-09-07 11:57:36<br>cover: ‘<a target="_blank" rel="noopener" href="https://z3.ax1x.com/2021/08/21/fvsVbD.png">https://z3.ax1x.com/2021/08/21/fvsVbD.png</a></li>
+</ul>
+<hr>
+<blockquote>
+<p>首先进入sspanel后添加节点，节点地址填写如下内容</p>
+</blockquote>
+<h2 id="直连方式"><a href="#直连方式" class="headerlink" title="直连方式"></a>直连方式</h2><p>服务器IP;端口;2;ws;;path=/index|host=伪装地址<br>其中数字2可以更改，数字低速度快，数字高安全性高。伪装地址随意填写<br>示例</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">IP;端口;2;ws;;path=/index|host=域名/IP<br></code></pre></td></tr></table></figure>
+<p>节点格式如果不懂就复制这段就行</p>
+<h2 id="中转方式"><a href="#中转方式" class="headerlink" title="中转方式"></a>中转方式</h2><p>服务器IP;端口;2;ws;;path=/index|host=伪装地址|server=中转IP|outside_port=中转端口<br>中转方式在原地址上增加了|server=中转IP|outside_port=中转端口，中转机通常是国内机器，此处填写国内IP和端口，IP可以使用域名代替。<br>节点IP地址直接添加国外机器IP，节点类型选择如下。<br>节点类型：V2Ray<br>保存后我们得到节点ID,加上已知的网站地址+mukey即可完成对接。</p>
+<h2 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a>连接服务器</h2><p>这里不做赘述，不会连接请叉掉。</p>
+<h2 id="配置防火墙"><a href="#配置防火墙" class="headerlink" title="配置防火墙"></a>配置防火墙</h2><p>首先查看防火墙的状态:</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">firewall-cmd --state<br></code></pre></td></tr></table></figure>
+<p>关闭防火墙:</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">systemctl stop firewalld.service<br></code></pre></td></tr></table></figure>
+<p>设置为开机禁用防火墙:</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">systemctl disable firewalld.service<br></code></pre></td></tr></table></figure>
+<h2 id="安装BBR"><a href="#安装BBR" class="headerlink" title="安装BBR"></a>安装BBR</h2><p>一键脚本</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">wget -N --no-check-certificate &quot;https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh&quot;<br>chmod +x tcp.sh<br>./tcp.sh<br></code></pre></td></tr></table></figure>
+<h2 id="环境配置并设置时区"><a href="#环境配置并设置时区" class="headerlink" title="环境配置并设置时区"></a>环境配置并设置时区</h2><p>安装环境</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">yum install -y epel-release yum-utils<br>yum-config-manager --enable epel<br></code></pre></td></tr></table></figure>
+<p>设置时区为上海</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime<br></code></pre></td></tr></table></figure>
+<h2 id="DOCKER对接并部署"><a href="#DOCKER对接并部署" class="headerlink" title="DOCKER对接并部署"></a>DOCKER对接并部署</h2><p>安装docker并设置开机自启</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><code class="hljs markdown">curl -fsSL https://get.docker.com -o get-docker.sh<br>bash get-docker.sh<br>systemctl restart docker<br>systemctl enable docke<br></code></pre></td></tr></table></figure>
+<h2 id="启动docker（通过docker-run）"><a href="#启动docker（通过docker-run）" class="headerlink" title="启动docker（通过docker run）"></a>启动docker（通过docker run）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs language">docker run -d --name=名称随意 \<br>-e speedtest=0 -e api_port=端口 -e downWithPanel=0 \<br>-e node_id=节点ID -e usemysql=0  -e sspanel_url=&quot;https://网站地址&quot; -e key=&quot;对接密钥&quot; -e TZ=&quot;Asia/Shanghai&quot;  \<br>--log-opt max-size=10m --log-opt max-file=5 \<br>--network=host --restart=always \<br>xiaoyiya/free-node:v2ray<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>自行修改参数<br>参数解释：名称使用英文；api_port=端口为api端口，独立一个不要冲突；downWithPanel=0参数为1时节点掉线即断网，为0时不断网；node_id=节点ID这个在面板可以看到；网站地址和key不做赘述，全局”&quot;后面不能有空格，如果是http则把https改成http。<br>至此对接完成，请去终端体验</p>
 
     </div>
 </div>
@@ -254,19 +274,12 @@
 </script>
 <div class="Last-Next">
     
-    <a href="/2021/09/07/%E6%96%B0%E7%9A%84%E6%96%87%E7%AB%A0/">
-        <div class="last">
-            <span>上一篇</span>
-            <p>新的文章</p>
-        </div>
-    </a>
-    
 
     
-    <a href="/2021/09/04/github-hexo-blog/">
+    <a href="/2021/09/07/hello-world/">
         <div class="next">
             <span>下一篇</span>
-            <p>使用github+hexo搭建一个永久免费的个人博客</p>
+            <p>Hello World</p>
         </div>
     </a>
     
